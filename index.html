@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Bank</title>
+</head>
+<body style="font-family:sans-serif; text-align:center; margin-top:100px;">
+
+<!-- LOGIN PAGE -->
+<div id="loginPage">
+    <h1>🏦 My Bank Login</h1>
+
+    <input type="text" id="user" placeholder="Username"><br><br>
+    <input type="password" id="pass" placeholder="Password"><br><br>
+
+    <button onclick="login()">Login</button>
+
+    <p id="loginMsg"></p>
+</div>
+
+
+<!-- BANK PAGE -->
+<div id="bankPage" style="display:none;">
+    <h1>🏦 My Bank</h1>
+    <h2>Balance: ₹ <span id="bal">1000</span></h2>
+
+    <input type="number" id="amt" placeholder="Enter amount"><br><br>
+
+    <button onclick="deposit()">Deposit</button>
+    <button onclick="withdraw()">Withdraw</button>
+    <button onclick="logout()">Logout</button>
+
+    <p id="msg"></p>
+</div>
+
+
+<script>
+let balance = 1000;
+
+// LOGIN FUNCTION
+function login() {
+    let u = document.getElementById("user").value;
+    let p = document.getElementById("pass").value;
+
+    if (u === "admin" && p === "1234") {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("bankPage").style.display = "block";
+    } else {
+        document.getElementById("loginMsg").innerText = "Invalid Login ❌";
+    }
+}
+
+// LOGOUT
+function logout() {
+    document.getElementById("bankPage").style.display = "none";
+    document.getElementById("loginPage").style.display = "block";
+}
+
+// DEPOSIT
+function deposit() {
+    let a = Number(document.getElementById("amt").value);
+    balance += a;
+    document.getElementById("bal").innerText = balance;
+    document.getElementById("msg").innerText = "Deposited ✅";
+}
+
+// WITHDRAW
+function withdraw() {
+    let a = Number(document.getElementById("amt").value);
+
+    if (a > balance) {
+        document.getElementById("msg").innerText = "Insufficient Balance ❌";
+    } else {
+        balance -= a;
+        document.getElementById("bal").innerText = balance;
+        document.getElementById("msg").innerText = "Withdrawn 💸";
+    }
+}
+</script>
+
+</body>
+</html>
