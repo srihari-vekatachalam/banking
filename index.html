@@ -5,7 +5,6 @@
 </head>
 <body style="font-family:sans-serif; text-align:center; margin-top:100px;">
 
-<!-- LOGIN PAGE -->
 <div id="loginPage">
     <h1>🏦 My Bank Login</h1>
 
@@ -17,8 +16,6 @@
     <p id="loginMsg"></p>
 </div>
 
-
-<!-- BANK PAGE -->
 <div id="bankPage" style="display:none;">
     <h1>🏦 My Bank</h1>
     <h2>Balance: ₹ <span id="bal">1000</span></h2>
@@ -32,16 +29,28 @@
     <p id="msg"></p>
 </div>
 
-
 <script>
 let balance = 1000;
 
-// LOGIN FUNCTION
-function login() {
+// 🔐 LOGIN API CALL
+async function login() {
     let u = document.getElementById("user").value;
     let p = document.getElementById("pass").value;
 
-    if (u === "admin" && p === "1234") {
+    let res = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            username: u,
+            password: p
+        })
+    });
+
+    let data = await res.json();
+
+    if (data.success) {
         document.getElementById("loginPage").style.display = "none";
         document.getElementById("bankPage").style.display = "block";
     } else {
@@ -49,13 +58,12 @@ function login() {
     }
 }
 
-// LOGOUT
+// باقي same
 function logout() {
     document.getElementById("bankPage").style.display = "none";
     document.getElementById("loginPage").style.display = "block";
 }
 
-// DEPOSIT
 function deposit() {
     let a = Number(document.getElementById("amt").value);
     balance += a;
@@ -63,7 +71,6 @@ function deposit() {
     document.getElementById("msg").innerText = "Deposited ✅";
 }
 
-// WITHDRAW
 function withdraw() {
     let a = Number(document.getElementById("amt").value);
 
