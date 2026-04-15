@@ -23,7 +23,7 @@ function encrypt(password) {
 }
 
 // 👉 உங்கள் encrypted password
-const storedPassword = "Uskjcsk10166";
+const storedPassword = "Uskjcsk";
 
 // 🔐 LOGIN API
 app.post("/login", (req, res) => {
