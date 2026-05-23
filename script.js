@@ -1,26 +1,29 @@
-async function login() {
+const express = require("express");
+const path = require("path");
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+const app = express();
 
-    const response = await fetch("/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            username,
-            password
-        })
-    });
+app.use(express.json());
 
-    const data = await response.json();
+app.use(express.static(__dirname));
 
-    console.log(data);
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+});
 
-    if (data.success) {
-        alert("Login Success");
+app.post("/login", (req, res) => {
+
+    const { username, password } = req.body;
+
+    if (username === "admin" && password === "1234") {
+        res.json({ success: true });
     } else {
-        alert("Invalid Username or Password");
+        res.json({ success: false });
     }
-}
+});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log("Server Running");
+});
