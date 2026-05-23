@@ -1,88 +1,222 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Simple Bank</title>
 </head>
+
 <body style="font-family:sans-serif; text-align:center; margin-top:100px;">
 
-<div id="loginPage">
-    <h1>🏦 My Bank Login</h1>
+    <!-- LOGIN PAGE -->
+    <div id="loginPage">
 
-    <input type="text" id="user" placeholder="Username"><br><br>
-    <input type="password" id="pass" placeholder="Password"><br><br>
+        <h1>My Bank Login</h1>
 
-    <button onclick="login()">Login</button>
+        <input type="text" id="user" placeholder="Username">
+        <br><br>
 
-    <p id="loginMsg"></p>
-</div>
+        <input type="password" id="pass" placeholder="Password">
+        <br><br>
 
-<div id="bankPage" style="display:none;">
-    <h1>🏦 My Bank</h1>
-    <h2>Balance: ₹ <span id="bal">1000</span></h2>
+        <button onclick="login()">Login</button>
 
-    <input type="number" id="amt" placeholder="Enter amount"><br><br>
+        <p id="loginMsg"></p>
 
-    <button onclick="deposit()">Deposit</button>
-    <button onclick="withdraw()">Withdraw</button>
-    <button onclick="logout()">Logout</button>
+    </div>
 
-    <p id="msg"></p>
-</div>
+    <!-- BANK PAGE -->
+    <div id="bankPage" style="display:none;">
 
-<script>
-let balance = 1000;
+        <h1>My Bank</h1>
 
-// 🔐 LOGIN API CALL
-async function login() {
-    let u = document.getElementById("user").value;
-    let p = document.getElementById("pass").value;
+        <h2>
+            Balance: ₹
+            <span id="bal">1000</span>
+        </h2>
 
-    let res = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            username: u,
-            password: p
-        })
-    });
+        <input type="number" id="amt" placeholder="Enter amount">
+        <br><br>
 
-    let data = await res.json();
+        <button onclick="deposit()">Deposit</button>
 
-    if (data.success) {
-        document.getElementById("loginPage").style.display = "none";
-        document.getElementById("bankPage").style.display = "block";
-    } else {
-        document.getElementById("loginMsg").innerText = "Invalid Login ❌";
-    }
-}
+        <button onclick="withdraw()">Withdraw</button>
 
-// باقي same
-function logout() {
-    document.getElementById("bankPage").style.display = "none";
-    document.getElementById("loginPage").style.display = "block";
-}
+        <button onclick="logout()">Logout</button>
 
-function deposit() {
-    let a = Number(document.getElementById("amt").value);
-    balance += a;
-    document.getElementById("bal").innerText = balance;
-    document.getElementById("msg").innerText = "Deposited ✅";
-}
+        <p id="msg"></p>
 
-function withdraw() {
-    let a = Number(document.getElementById("amt").value);
+    </div>
 
-    if (a > balance) {
-        document.getElementById("msg").innerText = "Insufficient Balance ❌";
-    } else {
-        balance -= a;
-        document.getElementById("bal").innerText = balance;
-        document.getElementById("msg").innerText = "Withdrawn 💸";
-    }
-}
-</script>
+    <script>
+
+        let balance = 1000;
+
+        // 🔐 LOGIN FUNCTION
+        async function login() {
+
+            let u = document.getElementById("user").value;
+            let p = document.getElementById("pass").value;
+
+            try {
+
+                let res = await fetch("http://localhost:3000/login", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        username: u,
+                        password: p
+                    })
+
+                });
+
+                let data = await res.json();
+
+                console.log(data);
+
+                if (data.success) {
+
+                    document.getElementById("loginPage").style.display = "none";
+
+                    document.getElementById("bankPage").style.display = "block";
+
+                } else {
+
+                    document.getElementById("loginMsg").innerText =
+                        "Invalid Username or Password ❌";
+                }
+
+            } catch (error) {
+
+                console.log(error);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+                document.getElementById("loginMsg").innerText =
+                    "Server Not Connected ❌";
+            }
+        }
+
+        // 🚪 LOGOUT
+        function logout() {
+
+            document.getElementById("bankPage").style.display = "none";
+
+            document.getElementById("loginPage").style.display = "block";
+        }
+
+        // 💰 DEPOSIT
+        function deposit() {
+
+            let a = Number(document.getElementById("amt").value);
+
+            balance += a;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+            document.getElementById("bal").innerText = balance;
+
+            document.getElementById("msg").innerText =
+                "Deposited Successfully ✅";
+        }
+
+        // 💸 WITHDRAW
+        function withdraw() {
+
+            let a = Number(document.getElementById("amt").value);
+
+            if (a > balance) {
+
+                document.getElementById("msg").innerText =
+                    "Insufficient Balance ❌";
+
+            } else {
+
+                balance -= a;
+
+                document.getElementById("bal").innerText = balance;
+
+                document.getElementById("msg").innerText =
+                    "Withdrawn Successfully 💸";
+            }
+        }
+
+    </script>
 
 </body>
+
 </html>

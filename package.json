@@ -1,0 +1,25 @@
+{
+  "name": "banking",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000b\u0000a\u0000n\u0000k\u0000i\u0000n\u0000g\u0000\r\u0000 \u0000",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srihari-vekatachalam/banking.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/srihari-vekatachalam/banking/issues"
+  },
+  "homepage": "https://github.com/srihari-vekatachalam/banking#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}

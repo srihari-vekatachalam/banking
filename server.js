@@ -2,10 +2,11 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-// 🔐 உங்கள் encryption logic (even +2, odd +1)
+// 🔐 Encryption function
 function encrypt(password) {
     let result = "";
 
@@ -22,23 +23,37 @@ function encrypt(password) {
     return result;
 }
 
-// 👉 உங்கள் encrypted password
-const storedPassword = "Uskjcsk";
+// Stored password
+const storedPassword = encrypt("Sri2026Abi");
 
-// 🔐 LOGIN API
+// LOGIN API
 app.post("/login", (req, res) => {
-    const { username, password } = req.body;
+
+    console.log(req.body);
+
+    let { username, password } = req.body;
+
+    username = username.trim().toLowerCase();
+    password = password.trim();
 
     const encryptedInput = encrypt(password);
 
-    if (username === "admin" && encryptedInput === storedPassword) {
-        res.json({ success: true });
+    console.log("Encrypted Input:", encryptedInput);
+    console.log("Stored Password:", storedPassword);
+
+    if (username === "srihari" && encryptedInput === storedPassword) {
+        res.json({
+            success: true,
+            message: "Login Success"
+        });
     } else {
-        res.json({ success: false });
+        res.json({
+            success: false,
+            message: "Invalid Username or Password"
+        });
     }
 });
 
-// 🚀 Server start
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
 });
